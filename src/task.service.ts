@@ -55,35 +55,27 @@ export class TaskService {
     }
   }
 
-  async getAllTasks(
-    completionStatus?: boolean,
-    dueDate?: string,
-    priority?: string
-  ) {
+  async getAllTasks(isComplete?: boolean, dueDate?: string, priority?: string) {
     try {
-      const query = TaskEntity.createQueryBuilder("task");
+      const where: any = {};
 
-      if (completionStatus) {
-        query.andWhere("task.completionStatus = :completionStatus", {
-          completionStatus,
-        });
+      if (isComplete !== undefined) {
+        where.isComplete = isComplete;
       }
 
       if (dueDate) {
-        query.andWhere("task.dueDate = :dueDate", { dueDate });
+        where.dueDate = dueDate;
       }
 
       if (priority) {
-        query.andWhere("task.priority = :priority", { priority });
+        where.priority = priority;
       }
 
-      // Add additional sorting logic
-      query.orderBy("task.completionStatus", "ASC"); // Example sorting by completion status
-      query.addOrderBy("task.dueDate", "ASC"); // Additional sorting by due date
-      query.addOrderBy("task.priority", "DESC"); // Additional sorting by priority
+      const tasks = await TaskEntity.find({
+        where,
+      });
 
-      await query.getMany();
-      return HttpResponse.success(query);
+      return HttpResponse.success(tasks);
     } catch (error: any) {
       return HttpResponse.error(error.message);
     }
@@ -103,7 +95,7 @@ export class TaskService {
       }
 
       if (task.isComplete) {
-        return HttpResponse.error("task is already mark as completed");
+        return HttpResponse.error("task is already marked as completed");
       }
 
       task.isComplete = true;

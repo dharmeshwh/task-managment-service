@@ -45,11 +45,11 @@ export class TaskController {
   @Get("get-all")
   @UseGuards(AdminAuthenticationGuard)
   getAllTasks(
-    @Query("isCompleted") isCompleted?: boolean,
+    @Query("isComplete") isComplete?: boolean,
     @Query("dueDate") dueDate?: string,
     @Query("priority") priority?: string
   ) {
-    const res = this.taskService.getAllTasks(isCompleted, dueDate, priority);
+    const res = this.taskService.getAllTasks(isComplete, dueDate, priority);
     return handleHTTPResponse(res);
   }
 
