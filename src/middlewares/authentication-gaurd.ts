@@ -26,6 +26,7 @@ export default class AuthenticationGuard implements CanActivate {
 
       request[`user`] = {
         userId,
+        type: user.type,
       };
 
       return true;

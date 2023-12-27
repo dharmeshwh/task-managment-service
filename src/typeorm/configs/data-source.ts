@@ -6,7 +6,7 @@ const T = __dirname + '/../../../.env';
 
 configDotenv({ path: T });
 
-const dataSource = new DataSource({
+export const dataSource = new DataSource({
   type: process.env.DATABASE_TYPE as any,
   host: process.env.POSTGRES_HOST,
   port: parseInt(String(process.env.POSTGRES_PORT), 10),

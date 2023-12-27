@@ -3,8 +3,8 @@ import { s2sHeaderName } from "./common-constant";
 
 export const getUserProfile = async (userId: string) => {
   try {
-    const baseUrl = process.env.AUTH_SERVICE_BASE_URL;
-    const url = `${baseUrl}/s2s/${userId}`;
+    const baseUrl = process.env.USER_SERVICE_BASE_URL;
+    const url = `${baseUrl}/s2s/user/${userId}`;
 
     const { data } = await axios.get(url, {
       headers: {

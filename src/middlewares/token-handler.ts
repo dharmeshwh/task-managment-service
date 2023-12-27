@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
+import { EUserTypes } from "../utils/common-constant";
 
 export interface IVerifyTokenResponse {
   userId: string;
+  type: EUserTypes;
 }
 
 // Function to verify the JWT token and return the decoded data
